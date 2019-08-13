@@ -3,7 +3,8 @@
 # Download and install packer
 ##################################
 - name: "Check packer version"
-  fail: msg="Packer version '{{ packer_install_version }}' is not valid. Please provide wanted packer version in configuration file (var name = packer_install_version)"
+  fail: msg="Packer version '{{ packer_install_version }}' is not valid.
+             Please provide wanted packer version in configuration file (var name = packer_install_version)"
   when: packer_install_version == 'nightly'
 
 
