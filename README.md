@@ -1,5 +1,7 @@
 [![Build Status](https://img.shields.io/travis/ptavares/ansible-role-packer/master.svg?style=flat-square)](https://travis-ci.org/ptavares/ansible-role-packer)
-[![Ansible Role](https://img.shields.io/ansible/role/29415.svg)](https://galaxy.ansible.com/ptavares/ansible-role-packer)
+[![Ansible Role](https://img.shields.io/ansible/role/42715.svg)](https://galaxy.ansible.com/ptavares/ansible-role-packer)
+[![Ansible Role](https://img.shields.io/ansible/quality/42715.svg)](https://galaxy.ansible.com/ptavares/ansible-role-packer)
+[![Ansible Role](https://img.shields.io/ansible/role/d/42715.svg)](https://galaxy.ansible.com/ptavares/ansible-role-packer)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/ptavares/ansible-role-packer/blob/master/LICENSE)
 
 ansible-role-packer
