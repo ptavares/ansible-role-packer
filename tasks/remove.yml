@@ -1,0 +1,8 @@
+#####################################
+# Remove current packer executable
+#####################################
+- name: Delete existing packer executable.
+  file:
+    path: "{{ packer_execution_path }}/{{ packer_execution_file_name }}"
+    state: absent
+  become: true

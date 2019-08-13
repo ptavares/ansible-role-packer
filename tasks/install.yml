@@ -1,0 +1,37 @@
+---
+##################################
+# Download and install packer
+##################################
+- name: "Check packer version"
+  fail: msg="Packer version '{{ packer_install_version }}' is not valid. Please provide wanted packer version in configuration file (var name = packer_install_version)"
+  when: packer_install_version == 'nightly'
+
+
+- name: "Download packer version {{ packer_install_version }}"
+  get_url:
+    url: "{{ packer_url }}"
+    dest: "{{ packer_download_location }}"
+  when: not( (packer_install_version is undefined) or
+             (packer_install_version is none) or
+             (packer_install_version | trim | length == 0) )
+        and current_packer_version.rc != 0
+
+- name: "Unzip file {{ packer_downloaded_file_name }}"
+  unarchive:
+    src: "{{ packer_download_location }}/{{ packer_downloaded_file_name }}"
+    dest: "{{ packer_download_location }}"
+  when: not( (packer_install_version is undefined) or
+             (packer_install_version is none) or
+             (packer_install_version | trim | length == 0) )
+        and current_packer_version.rc != 0
+
+- name: Move packer binarie for execution
+  copy:
+    src: "{{ packer_download_location }}/{{ packer_execution_file_name }}"
+    dest: "{{ packer_execution_path }}/{{ packer_execution_file_name }}"
+    mode: u+x,g+x,o+x
+  when: not( (packer_install_version is undefined) or
+             (packer_install_version is none) or
+             (packer_install_version | trim | length ==0) )
+        and current_packer_version.rc != 0
+  become: true

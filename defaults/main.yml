@@ -1,0 +1,27 @@
+---
+# defaults file for ansible-role-packer
+
+##############################
+# Packer version
+##############################
+# By default, module will download last version
+# To specify a version, use this below param
+# packer_install_version: X.X.X
+
+###############################################
+# Download information - Modify only if needed
+###############################################
+# Directory where zip will be downloaded before installation
+packer_download_location: /tmp/
+# Url to packer zip
+packer_url: "https://releases.hashicorp.com/packer/{{ packer_install_version | regex_replace('^v', '') }}/packer_{{ packer_install_version | regex_replace('^v', '') }}_linux_amd64.zip"
+# Downloaded file name
+packer_downloaded_file_name: "packer_{{ packer_install_version | regex_replace('^v', '') }}_linux_amd64.zip"
+
+###############################################
+# Installation information - Modify only if needed
+###############################################
+# Path where to install packer
+packer_execution_path: /usr/local/bin
+# Execution file name for packer
+packer_execution_file_name: packer

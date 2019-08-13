@@ -1,0 +1,62 @@
+---
+# tasks file for ansible-role-packer
+
+# Check requirement before installation
+- include: check-requirements.yml
+  tags:
+    - packer-install-all
+    - packer-install-requirements
+
+# Get last version
+- name: Get last packer version
+  shell: |
+    set -o pipefail
+    curl https://api.github.com/repos/hashicorp/packer/releases | grep tag_name | head -n 1 | cut -d '"' -f 4
+  args:
+    executable: /bin/bash
+    warn: False
+  failed_when: False
+  changed_when: False
+  register: last_packer_version
+  when: packer_install_version is not defined
+  tags:
+    - packer-install-all
+    - packer-install-update
+
+# Init version if not defined
+- name: Init packer version
+  set_fact:
+    packer_install_version: "{{ last_packer_version.stdout }}"
+  when: packer_install_version is not defined
+  tags:
+    - packer-install-all
+    - packer-install-update
+
+# Check current version
+- name: Check current packer Version
+  shell: |
+    set -o pipefail
+    packer --version | head -n 1 | grep {{ packer_install_version }}
+  args:
+    executable: /bin/bash
+  failed_when: False
+  changed_when: False
+  register: current_packer_version
+  tags:
+    - packer-install-all
+    - packer-install-update
+
+# Remove current packer executable if not same version
+- include: remove.yml
+  when: >
+    current_packer_version.stdout is defined
+    and packer_install_version not in current_packer_version.stdout
+  tags:
+    - packer-install-all
+    - packer-install-update
+
+# Install Packer
+- include: install.yml
+  tags:
+    - packer-install-all
+    - packer-install-update
