@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    packer_install_version: 1.4.2
   roles:
     - ansible-role-packer
